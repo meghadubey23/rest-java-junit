@@ -1,7 +1,6 @@
 package apiexecution;
 
 import io.restassured.response.Response;
-import org.json.JSONException;
 import utilities.Assertions;
 import utilities.ReadAPIs;
 import utilities.ReportLog;
@@ -9,7 +8,7 @@ import utilities.ReportLog;
 import static io.restassured.RestAssured.given;
 
 public class RunAPIs {
-    public void getSingleUser() throws JSONException {
+    public void getSingleUser() {
         ReportLog.log("Starting execution for run get user API....");
         Response response = given()
                 .when()
@@ -38,10 +37,9 @@ public class RunAPIs {
 
     }
 
-    public void getUsersList() throws JSONException {
+    public void getUsersList() {
         ReportLog.log("Starting execution for run get list API....");
         Response response = given()
-//                .pathParam("id", userId)
                 .when()
                 .get(ReadAPIs.getUsersList())
                 .then()

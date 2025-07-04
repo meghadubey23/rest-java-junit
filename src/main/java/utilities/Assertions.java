@@ -1,25 +1,19 @@
 package utilities;
 
+import exceptions.*;
 import io.restassured.response.Response;
-import org.json.JSONException;
 import org.skyscreamer.jsonassert.JSONAssert;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class Assertions {
 
-    public static void assertStatusCode(Response response, int expectedStatusCode) {
-
-        try {
-            assertEquals(expectedStatusCode, response.statusCode());
-            ReportLog.log("API was successful");
-        } catch (Exception e) {
-            ReportLog.log("API was not successful");
-            throw new RuntimeException(e);
+    public static void assertStatusCode(Response response, int expected) {
+        int actual = response.getStatusCode();
+        if (actual != expected) {
+            throwExceptionForStatusCode(actual, response.getBody().asString());
         }
     }
 
-    public static void assertJsonEquals(String expectedResponseJson, Response response) throws JSONException {
+    public static void assertJsonEquals(String expectedResponseJson, Response response) {
         String actualJson = response.getBody().asString();
         try {
             JSONAssert.assertEquals(expectedResponseJson, actualJson, false);
@@ -29,6 +23,21 @@ public class Assertions {
             ReportLog.log(String.format("Expected Response: %s", expectedResponseJson));
 
             throw new RuntimeException(e);
+        }
+    }
+
+    private static void throwExceptionForStatusCode(int statusCode, String body) {
+        switch (statusCode) {
+            case 400:
+                throw new BadRequestException(body);
+            case 401:
+                throw new UnauthorizedException(body);
+            case 403:
+                throw new ForbiddenException(body);
+            case 404:
+                throw new NotFoundException(body);
+            default:
+                throw new StatusCodeMismatchException(200, statusCode); // default expected 200
         }
     }
 }
