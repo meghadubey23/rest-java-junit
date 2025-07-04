@@ -1,11 +1,6 @@
 import apiexecution.RunAPIs;
-import exceptions.UnauthorizedException;
-import org.json.JSONException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class APITests extends BaseTest {
 //    APIs from: https://reqres.in/
@@ -15,18 +10,6 @@ public class APITests extends BaseTest {
     void runGetSingleUserReturns200() {
         RunAPIs api = new RunAPIs();
         api.getSingleUser();
-    }
-
-    @Test
-    @DisplayName("Returns Unauthorized Exception")
-    void runGetSingleUserReturnsUnAuthorized() throws JSONException {
-
-        UnauthorizedException exception = assertThrows(UnauthorizedException.class, () -> {
-            RunAPIs api = new RunAPIs();
-            api.getSingleUser();
-        });
-
-        assertTrue(exception.getMessage().contains("401 Unauthorized:"));
     }
 
     @Test

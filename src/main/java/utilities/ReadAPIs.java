@@ -24,15 +24,15 @@ public class ReadAPIs {
         return prop.getProperty(key);
     }
 
-    public static String baseUri() {
+    public static String getBaseUri() {
         return getProperty("baseUri");
     }
 
-    public static String getSingleUser() {
-        return baseUri() + getProperty("getSingleUser");
+    public static String getSingleUserEndpoint() {
+        return getProperty("getSingleUser");
     }
 
     public static String getUsersList() {
-        return baseUri() + getProperty("getUsersList");
+        return getBaseUri() + getProperty("getUsersList");
     }
 }
