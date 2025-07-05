@@ -3,7 +3,7 @@ name: Smoke Tests - Master Branch
 on:
   push:
     branches:
-      - master
+      - '**'
 
 jobs:
   run-smoke-tests:
