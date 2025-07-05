@@ -2,24 +2,30 @@ package utilities;
 
 import exceptions.*;
 import io.restassured.response.Response;
+import org.junit.jupiter.api.Assertions;
 import org.skyscreamer.jsonassert.JSONAssert;
 
-public class Assertions {
+public class AssertUtils {
 
     public static void assertStatusCode(Response response, int expected) {
-        int actual = response.getStatusCode();
-        if (actual != expected) {
-            throwExceptionForStatusCode(actual, response.getBody().asString());
+        try {
+            Assertions.assertEquals(expected, response.getStatusCode());
+            ReportLog.log(String.format("%s is correct", response.getStatusCode()));
+        } catch (Exception e) {
+            ReportLog.log(String.format("Actual code: %s", response.getStatusCode()));
+            ReportLog.log(String.format("Expected code: %s", expected));
+
+            throwExceptionForStatusCode(response.getStatusCode(), response.getBody().asString());
         }
+
     }
 
-    public static void assertJsonEquals(String expectedResponseJson, Response response) {
-        String actualJson = response.getBody().asString();
+    public static void assertJsonEquals(String expectedResponseJson, String actualResponseJson) {
         try {
-            JSONAssert.assertEquals(expectedResponseJson, actualJson, false);
+            JSONAssert.assertEquals(expectedResponseJson, actualResponseJson, false);
             ReportLog.log("JSON response is correct");
         } catch (Exception e) {
-            ReportLog.log(String.format("Actual Response: %s", actualJson));
+            ReportLog.log(String.format("Actual Response: %s", actualResponseJson));
             ReportLog.log(String.format("Expected Response: %s", expectedResponseJson));
 
             throw new RuntimeException(e);

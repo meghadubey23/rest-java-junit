@@ -33,6 +33,6 @@ public class ReadAPIs {
     }
 
     public static String getUsersList() {
-        return getBaseUri() + getProperty("getUsersList");
+        return getProperty("getUsersList");
     }
 }
