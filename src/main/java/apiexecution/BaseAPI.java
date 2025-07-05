@@ -26,15 +26,26 @@ public class BaseAPI {
         return requestSpec;
     }
 
-    protected void verifyResponse(Response response, String json_resp_exp) {
-        AssertUtils.assertStatusCode(response, 200);
-        if (json_resp_exp != null) {
-            AssertUtils.assertJsonEquals(json_resp_exp, response.getBody().asString());
+    protected void verifyResponse(Response response, String expectedJson, Integer statusCode) {
+        AssertUtils.assertStatusCode(response, statusCode);
+
+        if (expectedJson != null) {
+            AssertUtils.assertJsonEquals(expectedJson, response.getBody().asString());
         }
     }
 
     protected void verifyResponse(Response response) {
-        verifyResponse(response, null);
+        verifyResponse(response, null, 200);
     }
+
+    protected void verifyResponse(Response response, String expectedJson) {
+        verifyResponse(response, expectedJson, 200);
+    }
+
+    protected void verifyResponse(Response response, Integer statusCode) {
+        verifyResponse(response, null, statusCode);
+    }
+
+
 }
 
