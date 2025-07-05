@@ -14,4 +14,8 @@ public class ReportLog {
     public static void log(String text) {
         logger.info(text);
     }
+
+    public static void error(String text) {
+        logger.error(text);
+    }
 }
