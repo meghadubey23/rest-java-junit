@@ -21,8 +21,14 @@ public class RunAPIs extends BaseAPI {
         int expectedStatus = tdata.getExpectedStatusCode();
 
         Map<String, String> postBodyMap = new ReadPostBody("login").getJsonBody();
-        postBodyMap.put("email", ReadProperty.getProperty("email"));
-        postBodyMap.put("password", ReadProperty.getProperty("password"));
+        if(tdata.isUsername())
+            postBodyMap.put("email", ReadProperty.getProperty("email"));
+        else
+            postBodyMap.remove("email");
+        if(tdata.isPassword())
+            postBodyMap.put("password", ReadProperty.getProperty("password"));
+        else
+            postBodyMap.remove("password");
 
         ReportLog.log(String.format("Starting execution for %s endpoint", endPoint));
 
