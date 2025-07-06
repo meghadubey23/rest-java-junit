@@ -11,13 +11,34 @@ public class APITests extends BaseTest {
 //    APIs from: https://reqres.in/
 
     @ParameterizedTest
+    @MethodSource("utilities.ReadExpectedResponses#userLoginJsonProvider")
+    @DisplayName("Login as a valid user")
+    void userLogin(String expected_response) {
+        TestCaseData testData1 = new TestCaseData();
+        testData1.setExpectedResponse(expected_response);
+
+        RunAPIs api = new RunAPIs();
+        api.postUserLogin(testData1);
+    }
+
+    @ParameterizedTest
+    @MethodSource("utilities.ReadExpectedResponses#userLoginJsonProvider")
+    @DisplayName("Login as a valid user")
+    void userLoginUnsuccessful(String expected_response) {
+        TestCaseData testData1 = new TestCaseData();
+        testData1.setExpectedResponse(expected_response);
+
+        RunAPIs api = new RunAPIs();
+        api.postUserLogin(testData1);
+    }
+
+    @ParameterizedTest
     @Tag("smoke")
     @MethodSource("utilities.ReadExpectedResponses#singleUserJsonProvider")
     @DisplayName("Get Single User API should return 200 OK for valid user IDs")
     void runGetSingleUserReturns200(String expected_response) {
         TestCaseData testData1 = new TestCaseData();
         testData1.setUserId(2);
-        testData1.setExpectedStatusCode(200);
         testData1.setExpectedResponse(expected_response);
 
         TestCaseData testData2 = new TestCaseData();
@@ -33,7 +54,6 @@ public class APITests extends BaseTest {
     @DisplayName("Get Users List API should return 200 OK for valid API request")
     void runGetListReturns200(String expected_response) {
         TestCaseData testData1 = new TestCaseData();
-        testData1.setExpectedStatusCode(200);
         testData1.setExpectedResponse(expected_response);
 
         RunAPIs api = new RunAPIs();

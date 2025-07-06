@@ -33,11 +33,19 @@ public class ReadExpectedResponses {
         return getExpectedResponse("get_user_list");
     }
 
+    public static String getUserLoginResponse() {
+        return getExpectedResponse("login");
+    }
+
     public static Stream<String> singleUserJsonProvider() {
         return Stream.of(getSingleUserExpectedResponse());
     }
 
     public static Stream<String> userListJsonProvider() {
         return Stream.of(getUserListExpectedResponse());
+    }
+
+    public static Stream<String> userLoginJsonProvider() {
+        return Stream.of(getUserLoginResponse());
     }
 }
