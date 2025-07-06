@@ -1,8 +1,8 @@
 package data;
 
-public class TestCaseData {
+public class TestCaseData extends BaseData {
+
     private int userId = 0;
-    private int expectedStatusCode = 200;
     private String expectedResponse = null;
 
     public int getUserId() {
@@ -11,14 +11,6 @@ public class TestCaseData {
 
     public void setUserId(int userId) {
         this.userId = userId;
-    }
-
-    public int getExpectedStatusCode() {
-        return expectedStatusCode;
-    }
-
-    public void setExpectedStatusCode(int expectedStatusCode) {
-        this.expectedStatusCode = expectedStatusCode;
     }
 
     public String getExpectedResponse() {
