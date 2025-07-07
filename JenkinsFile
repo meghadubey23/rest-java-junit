@@ -1,0 +1,33 @@
+pipeline {
+    agent any
+
+    triggers {
+        cron('H/15 * * * *') // optional: run every night at 2 AM
+    }
+
+    environment {
+        MAVEN_OPTS = "-Dmaven.repo.local=.m2/repository"
+    }
+
+    stages {
+        stage('Checkout Code') {
+            steps {
+                git branch: 'master', url: 'https://github.com/meghadubey23/rest-java-junit.git'
+            }
+        }
+
+        stage('Build and Run Smoke Tests') {
+            steps {
+                sh 'mvn clean test -Dgroups=smoke'
+            }
+        }
+
+        stage('Publish Test Reports') {
+            post {
+                always {
+                    junit '**/target/surefire-reports/*.xml'
+                }
+            }
+        }
+    }
+}
