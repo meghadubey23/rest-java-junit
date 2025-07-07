@@ -1,6 +1,7 @@
 import apiexecution.RunAPIs;
 import data.TestCaseData;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -22,11 +23,13 @@ public class APITests extends BaseTest {
     }
 
     @ParameterizedTest
-    @MethodSource("utilities.ReadExpectedResponses#userLoginJsonProvider")
-    @DisplayName("Login as a valid user")
+    @MethodSource("utilities.ReadExpectedResponses#failedUserLoginJsonProvider")
+    @DisplayName("Invalid user login")
     void userLoginUnsuccessful(String expected_response) {
         TestCaseData testData1 = new TestCaseData();
+        testData1.setPassword(false);
         testData1.setExpectedResponse(expected_response);
+        testData1.setExpectedStatusCode(400);
 
         RunAPIs api = new RunAPIs();
         api.postUserLogin(testData1);

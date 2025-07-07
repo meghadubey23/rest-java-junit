@@ -26,15 +26,19 @@ public class ReadExpectedResponses {
     }
 
     public static String getSingleUserExpectedResponse() {
-        return getExpectedResponse("get_single_user");
+        return getExpectedResponse("resp_single_user");
     }
 
     public static String getUserListExpectedResponse() {
-        return getExpectedResponse("get_user_list");
+        return getExpectedResponse("resp_user_list");
     }
 
     public static String getUserLoginResponse() {
-        return getExpectedResponse("login");
+        return getExpectedResponse("resp_login");
+    }
+
+    public static String getFailedUserLoginResponse() {
+        return  getExpectedResponse("resp_login_failed");
     }
 
     public static Stream<String> singleUserJsonProvider() {
@@ -48,4 +52,9 @@ public class ReadExpectedResponses {
     public static Stream<String> userLoginJsonProvider() {
         return Stream.of(getUserLoginResponse());
     }
+
+    public static Stream<String> failedUserLoginJsonProvider() {
+        return Stream.of(getFailedUserLoginResponse());
+    }
+
 }
