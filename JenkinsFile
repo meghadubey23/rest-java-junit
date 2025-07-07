@@ -1,12 +1,13 @@
 pipeline {
     agent any
 
-    triggers {
-        cron('H/15 * * * *') // optional: run every night at 2 AM
+    tools {
+        maven 'Maven 3.9.3'  // <-- This name must match exactly what you set in Jenkins Global Tools
     }
 
-    environment {
-        MAVEN_OPTS = "-Dmaven.repo.local=.m2/repository"
+    triggers {
+        // Runs nightly at 2 AM
+        cron('H/15 * * * *')
     }
 
     stages {
@@ -20,11 +21,9 @@ pipeline {
             steps {
                 sh 'mvn clean test -Dgroups=smoke'
             }
-        }
-
-        stage('Publish Test Reports') {
             post {
                 always {
+                    // Will look for JUnit (or TestNG) XML results
                     junit '**/target/surefire-reports/*.xml'
                 }
             }
