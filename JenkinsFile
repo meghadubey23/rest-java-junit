@@ -20,11 +20,9 @@ pipeline {
             steps {
                 sh 'mvn clean test -Dgroups=smoke'
             }
-        }
-
-        stage('Publish Test Reports') {
             post {
                 always {
+                    // Publishes test results even if test fails
                     junit '**/target/surefire-reports/*.xml'
                 }
             }
