@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     tools {
-        maven 'Maven 3.9.3'  // <-- This name must match exactly what you set in Jenkins Global Tools
+        maven 'maven 3.9.3'  // <-- This name must match exactly what you set in Jenkins Global Tools
     }
 
     triggers {
