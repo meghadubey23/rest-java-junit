@@ -6,8 +6,7 @@ pipeline {
     }
 
     triggers {
-        // Runs nightly at 1 AM
-        cron('H 1 * * *')
+        cron('0 12 * * *')  // Runs at 12:00 PM 
     }
 
     stages {
