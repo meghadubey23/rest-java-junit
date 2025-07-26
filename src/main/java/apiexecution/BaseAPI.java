@@ -1,6 +1,5 @@
 package apiexecution;
 
-import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
@@ -10,10 +9,6 @@ import utilities.ReadAPIs;
 public class BaseAPI {
 
     protected static RequestSpecification requestSpec;
-
-    public BaseAPI() {
-        RestAssured.baseURI = ReadAPIs.getBaseUri();
-    }
 
     static {
         requestSpec = new RequestSpecBuilder()
