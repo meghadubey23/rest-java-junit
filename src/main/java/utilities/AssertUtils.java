@@ -3,6 +3,9 @@ package utilities;
 import exceptions.*;
 import io.restassured.response.Response;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 public class AssertUtils {
 
     public static void assertStatusCode(Response response, int expected) {
@@ -36,5 +39,16 @@ public class AssertUtils {
             case 404 -> throw new NotFoundException(body);
             default -> throw new StatusCodeMismatchException(200, statusCode); // default expected 200
         }
+    }
+
+    public static <T> void assertEqualValues(T expected, T actual, String message) {
+        assertEquals(expected, actual);
+        ReportLog.log(message);
+    }
+
+    // Wrapper for assertTrue
+    public static void assertConditionTrue(boolean condition, String message) {
+        assertTrue(condition);
+        ReportLog.log(message);
     }
 }
