@@ -8,21 +8,13 @@ import utilities.ReadAPIs;
 
 public class BaseAPI {
 
-    protected static RequestSpecification requestSpec;
+    protected static RequestSpecification requestSpec = new RequestSpecBuilder()
+            .setBaseUri(ReadAPIs.getBaseUri())
+            .addHeader("x-api-key", "reqres-free-v1")
+            .build();
 
-    static {
-        requestSpec = new RequestSpecBuilder()
-                .setBaseUri(ReadAPIs.getBaseUri())
-                .addHeader("x-api-key", "reqres-free-v1")
-                .build();
-    }
-
-    protected RequestSpecification getRequestSpec() {
-        return requestSpec;
-    }
-
-    protected void verifyResponse(Response response, String expectedJson, Integer statusCode) {
-        AssertUtils.assertStatusCode(response, statusCode);
+    protected void verifyResponse(Response response, String expectedJson, int expectedStatusCode) {
+        AssertUtils.assertStatusCode(response, expectedStatusCode);
 
         if (expectedJson != null) {
             AssertUtils.assertJsonEquals(expectedJson, response.getBody().asString());
