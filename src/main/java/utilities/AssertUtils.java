@@ -21,6 +21,8 @@ public class AssertUtils {
     }
 
     public static void assertJsonEquals(String expectedResponseJson, String actualResponseJson) {
+        ReportLog.log(String.format("API Response: %s", expectedResponseJson));
+
         if (expectedResponseJson.equals(actualResponseJson)) {
             ReportLog.log("JSON response is correct");
         } else {

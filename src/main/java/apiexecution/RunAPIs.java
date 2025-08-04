@@ -1,5 +1,6 @@
 package apiexecution;
 
+import data.ResourceData;
 import data.UserInfoData;
 import data.UserLoginData;
 import io.restassured.http.ContentType;
@@ -68,6 +69,27 @@ public class RunAPIs extends BaseAPI {
         String endPoint = ReadAPIs.getUsersList();
 
         userInfoData.parallelStream().forEach(tdata -> {
+            ReportLog.log(String.format("Starting execution for %s endpoint", endPoint));
+
+            Response response = given()
+                    .spec(requestSpec)
+                    .queryParam("page", "2")
+                    .when()
+                    .get(endPoint)
+                    .then()
+                    .extract()
+                    .response();
+
+            commonVerifications(tdata.getExpectedResponse(), tdata.getExpectedStatusCode(), response, tdata.getMap());
+        });
+    }
+
+    public void getSingleResource(List<ResourceData> resourceData) {
+        String getEndPoint = ReadAPIs.getSingleResource();
+
+        resourceData.parallelStream().forEach(tdata -> {
+            String endPoint = String.format(getEndPoint, tdata.getResourceId());
+
             ReportLog.log(String.format("Starting execution for %s endpoint", endPoint));
 
             Response response = given()

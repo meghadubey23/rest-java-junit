@@ -38,7 +38,11 @@ public class ReadExpectedResponses {
     }
 
     public static String getFailedUserLoginResponse() {
-        return  getExpectedResponse("resp_login_failed");
+        return getExpectedResponse("resp_login_failed");
+    }
+
+    public static String getSingleResourceResponse() {
+        return getExpectedResponse("resp_single_resource");
     }
 
     public static Stream<String> singleUserJsonProvider() {

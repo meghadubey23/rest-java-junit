@@ -19,4 +19,13 @@ public class ReadAPIs {
     public static String getUsersList() {
         return getProperty("getUsersList");
     }
+
+    public static String getSingleResource() {
+        return getProperty("getSingleResource");
+    }
+
+    public static String getResourceList() {
+        return getProperty("getResourceList");
+    }
+
 }
