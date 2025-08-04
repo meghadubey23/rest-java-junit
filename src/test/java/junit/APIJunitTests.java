@@ -1,3 +1,5 @@
+package junit;
+
 import apiexecution.RunAPIs;
 import data.UserInfoData;
 import data.UserLoginData;
@@ -9,7 +11,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class APITests extends BaseTest {
+public class APIJunitTests extends JunitBaseTest {
 //    APIs from: https://reqres.in/
 
     @ParameterizedTest

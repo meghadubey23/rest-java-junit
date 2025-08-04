@@ -1,10 +1,12 @@
+package junit;
+
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import utilities.ReportLog;
 
-public class BaseTest {
+public class JunitBaseTest {
 
     @BeforeAll
     public static void startTestBeforeALl() {
